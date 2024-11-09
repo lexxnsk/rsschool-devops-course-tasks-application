@@ -160,7 +160,8 @@ helm-charts/wordpress
   This file defines the Kubernetes service for WordPress. It exposes the WordPress application to external traffic and allows access to the application from outside the Kubernetes cluster.
 - **```values.yaml```**:  
   This file contains the default configuration values for the Helm chart. It provides values for various parameters like image versions, replica counts, database credentials, and other configurable aspects of the WordPress and MariaDB deployments. These values can be overridden during the Helm installation or upgrade process.
-  ## How to Use it manually:
+  
+## How to Use it manually:
   **Helm CLI:**
   ```
   kubectl create namespace wordpress
