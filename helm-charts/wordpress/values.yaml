@@ -1,6 +1,6 @@
 # wordpress/values.yaml
 wordpress:
-  replicaCount: 2
+  replicaCount: 1
   image:
     repository: wordpress
     tag: latest
