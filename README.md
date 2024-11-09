@@ -11,9 +11,6 @@ This repository contains all necessary resources and configurations to deploy an
 ├── screenshots/
 ├── .gitignore
 ├── README.md
-├── jenkins-sa.yaml
-├── jenkins-values.yaml
-├── jenkins-volume.yaml
 ```
 
 ### Directory & File Overview
@@ -135,4 +132,40 @@ sudo python3 -m http.server 32000
 
 ---
 ## Task 5 clarifications:
-**XXXXXXXXXXXXXXXXXXXXXXx:**
+**Helm Chart file structure description:**
+WordPress Helm Chart has next file structure:
+```
+tree helm-charts/wordpress
+helm-charts/wordpress
+├── Chart.yaml
+├── templates
+│   ├── deployment-mariadb.yaml
+│   ├── deployment-wordpress.yaml
+│   ├── service-mariadb.yaml
+│   └── service-wordpress.yaml
+├── values.yaml
+├── wordpress-deployment.yaml
+└── wordpress-service.yaml
+```
+
+- **```Chart.yaml```**:  
+  This is the metadata file for the Helm chart. It contains essential information about the chart, such as its name, version, description, and dependencies.
+- **```templates/deployment-mariadb.yaml```**:  
+  This file defines the Kubernetes deployment for the MariaDB database. It specifies how the MariaDB container should be deployed, the replica count, container image, and other configurations specific to the database.
+- **```templates/deployment-wordpress.yaml```**:  
+  This file defines the Kubernetes deployment for the WordPress application. It specifies how the WordPress container should be deployed, including settings such as replicas, container images, and environment variables like the database connection.
+- **```templates/service-mariadb.yaml```**:  
+  This file defines the Kubernetes service for MariaDB, allowing communication between the WordPress application and the database. It exposes MariaDB internally within the cluster to other services, such as WordPress.
+- **```templates/service-wordpress.yaml```**:  
+  This file defines the Kubernetes service for WordPress. It exposes the WordPress application to external traffic and allows access to the application from outside the Kubernetes cluster.
+- **```values.yaml```**:  
+  This file contains the default configuration values for the Helm chart. It provides values for various parameters like image versions, replica counts, database credentials, and other configurable aspects of the WordPress and MariaDB deployments. These values can be overridden during the Helm installation or upgrade process.
+  ## How to Use it manually:
+  **Helm CLI:**
+  ```
+  kubectl create namespace wordpress
+  helm install wordpress helm-charts/wordpress --namespace wordpress
+  ```
+## How to Use it automatically:
+  **GitHub Actions:**  
+   Before committing, check the ```.github/workflows/deploy-wordpress.yaml.yml``` file and update the branch name to trigger the GitHub workflow automatically.​
