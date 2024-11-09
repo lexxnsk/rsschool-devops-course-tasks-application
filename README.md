@@ -30,12 +30,6 @@ This repository contains all necessary resources and configurations to deploy an
   This file specifies which files or directories should be ignored by Git when tracking changes in a repository.
 - **```README.md```**:  
   This file in GitHub serves as the primary documentation for a repository (you're reading it right now).
-- **```jenkins-sa.yaml```**:  
-  This file contains the configuration for a Service Account in a K3S cluster that is specifically used for Jenkins.
-- **```jenkins-values.yaml```**:  
-  This file contains configuration values that customize the deployment of Jenkins within a K3S cluster.
-- **```jenkins-volume.yaml```**:  
-  This file contains configuration to define persistent storage for Jenkins in a K3S environment.
 
 ### GitHub variables and GitHub Secrets variables
 3. **K3S token variable** ```K3S_TOKEN``` is stored in GitHub Secrets. It was created using the following command:  
