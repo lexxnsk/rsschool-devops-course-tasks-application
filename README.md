@@ -150,6 +150,7 @@ helm-charts/wordpress
 ├── wordpress-deployment.yaml
 └── wordpress-service.yaml
 '''
+
 - **```Chart.yaml```**:  
   This is the metadata file for the Helm chart. It contains essential information about the chart, such as its name, version, description, and dependencies.
 - **```templates/deployment-mariadb.yaml```**:  
