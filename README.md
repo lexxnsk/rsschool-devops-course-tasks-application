@@ -40,8 +40,8 @@ This repository contains all necessary resources and configurations to deploy an
 ### GitHub variables and GitHub Secrets variables
 3. **K3S token variable** ```K3S_TOKEN``` is stored in GitHub Secrets. It was created using the following command:  
 ```
-gh secret set SSH_PRIVATE_KEY --body "$(cat aws.pem)" --repo lexxnsk/rsschool-devops-course-tasks
-gh secret set K3S_TOKEN --body "<K3S_TOKEN>" --repo lexxnsk/rsschool-devops-course-tasks
+gh secret set SSH_PRIVATE_KEY --body "$(cat aws.pem)" --repo lexxnsk/rsschool-devops-course-tasks-application
+gh secret set K3S_TOKEN --body "<K3S_TOKEN>" --repo lexxnsk/rsschool-devops-course-tasks-application
 gh variable set BASTION_HOST --body "bastion.rss.myslivets.ru" --repo lexxnsk/rsschool-devops-course-tasks-application
 gh variable set K3S_SERVER_HOST --body "10.0.2.10" --repo lexxnsk/rsschool-devops-course-tasks-application
 gh variable set BASTION_USER --body "ubuntu" --repo lexxnsk/rsschool-devops-course-tasks-application
