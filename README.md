@@ -137,7 +137,7 @@ sudo python3 -m http.server 32000
 ## Task 5 clarifications:
 **Helm Chart file structure description:**
 WordPress Helm Chart has next file structure:
-'''
+```
 tree helm-charts/wordpress
 helm-charts/wordpress
 ├── Chart.yaml
@@ -149,7 +149,7 @@ helm-charts/wordpress
 ├── values.yaml
 ├── wordpress-deployment.yaml
 └── wordpress-service.yaml
-'''
+```
 
 - **```Chart.yaml```**:  
   This is the metadata file for the Helm chart. It contains essential information about the chart, such as its name, version, description, and dependencies.
