@@ -1,6 +1,3 @@
-# rsschool-devops-course-tasks-application
-
-
 
 # The RS School - AWS DevOps Course. Project Documentation. Application part.
 
