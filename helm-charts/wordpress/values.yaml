@@ -1,0 +1,24 @@
+# wordpress/values.yaml
+wordpress:
+  replicaCount: 1
+  image:
+    repository: wordpress
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 32001
+
+mariadb:
+  image:
+    repository: mariadb
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 8080
+  db:
+    name: wordpress
+    user: wpuser
+    password: wppassword
+    rootPassword: rootpassword

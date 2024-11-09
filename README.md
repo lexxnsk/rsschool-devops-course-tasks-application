@@ -6,6 +6,7 @@ This repository contains all necessary resources and configurations to deploy an
 ## File Structure
 ```
 ├── .github/workflows/
+├── helm-charts
 ├── PR_descriptions/
 ├── screenshots/
 ├── .gitignore
@@ -19,6 +20,8 @@ This repository contains all necessary resources and configurations to deploy an
 
 - **```.github/workflows/```**:  
   This directory is a special folder in a GitHub repository that contains YAML files defining GitHub Actions workflows. 
+- **```helm-charts/```**:  
+  This directory contains Helm chart configurations for deploying and managing applications on Kubernetes. 
 - **```PR_descriptions/```**:  
   This directory contains the descriptions for Pull Request.
 - **```screenshots/```**:  

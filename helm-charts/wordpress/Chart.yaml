@@ -1,0 +1,6 @@
+# wordpress/Chart.yaml
+apiVersion: v2
+name: wordpress
+description: A basic Helm chart for WordPress with MariaDB
+version: 0.1.0
+appVersion: "latest"

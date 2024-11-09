@@ -1,0 +1,31 @@
+# wordpress/templates/deployment-mariadb.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+        - name: mariadb
+          image: "{{ .Values.mariadb.image.repository }}:{{ .Values.mariadb.image.tag }}"
+          imagePullPolicy: {{ .Values.mariadb.image.pullPolicy }}
+          env:
+            - name: MYSQL_DATABASE
+              value: "{{ .Values.mariadb.db.name }}"
+            - name: MYSQL_USER
+              value: "{{ .Values.mariadb.db.user }}"
+            - name: MYSQL_PASSWORD
+              value: "{{ .Values.mariadb.db.password }}"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "{{ .Values.mariadb.db.rootPassword }}"
+          ports:
+            - containerPort: 3306

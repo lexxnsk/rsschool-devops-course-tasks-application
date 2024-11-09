@@ -1,0 +1,13 @@
+# wordpress/templates/service-mariadb.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+  namespace: wordpress
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: mariadb
+  type: ClusterIP

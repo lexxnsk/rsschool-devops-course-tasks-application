@@ -1,0 +1,10 @@
+# Excluding all hidden terraform files
+*.terraform*
+# Excluding terraform state files
+*terraform.tfstate*
+
+#Exclude MacOS garbage
+*.DS_Store
+
+#Exclude SSH keys
+*.pem
