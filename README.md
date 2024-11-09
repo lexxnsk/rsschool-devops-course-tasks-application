@@ -39,7 +39,15 @@ This repository contains all necessary resources and configurations to deploy an
 
 ### GitHub variables and GitHub Secrets variables
 3. **K3S token variable** ```K3S_TOKEN``` is stored in GitHub Secrets. It was created using the following command:  
-```gh secret set K3S_TOKEN --body "<K3S_TOKEN>" --repo lexxnsk/rsschool-devops-course-tasks```  
+```
+gh secret set SSH_PRIVATE_KEY --body "$(cat aws.pem)" --repo lexxnsk/rsschool-devops-course-tasks
+gh secret set K3S_TOKEN --body "<K3S_TOKEN>" --repo lexxnsk/rsschool-devops-course-tasks
+gh variable set BASTION_HOST --body "bastion.rss.myslivets.ru" --repo lexxnsk/rsschool-devops-course-tasks-application
+gh variable set K3S_SERVER_HOST --body "10.0.2.10" --repo lexxnsk/rsschool-devops-course-tasks-application
+gh variable set BASTION_USER --body "ubuntu" --repo lexxnsk/rsschool-devops-course-tasks-application
+gh variable set EC2_USER --body "ec2-user" --repo lexxnsk/rsschool-devops-course-tasks-application
+gh variable set K3S_CONFIG --body "$(cat /Users/amyslivets/Documents/AWS/k3s.yml)" --repo lexxnsk/rsschool-devops-course-tasks-application
+```  
 
 You can list variables and secrets using the following commands:  
 ```gh variable list --repo lexxnsk/rsschool-devops-course-tasks```  
@@ -90,21 +98,36 @@ local-path (default)   rancher.io/local-path          Delete          WaitForFir
 ```
 - Here is a simple NGINX reverse proxy config to be installed on Bastion Host:
 ```
-sudo vi /etc/nginx/conf.d/jenkins.conf
+sudo vi /etc/nginx/conf.d/nginx.conf
 
 server {
     listen 80;
-    server_name jenkins.myslivets.ru;
+    server_name jenkins.rss.myslivets.ru;
 
     location / {
-        proxy_pass http://10.0.2.10:32000;       # Forward requests to Jenkins
-        proxy_http_version 1.1;                  # Use HTTP/1.1 for proxying
-        proxy_set_header Upgrade $http_upgrade;  # Handle WebSocket connections
-        proxy_set_header Connection 'upgrade';   # Handle WebSocket connections
-        proxy_set_header Host $host;             # Preserve original Host header
-        proxy_set_header X-Real-IP $remote_addr; # Pass the client IP address
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # Preserve client IP
-        proxy_set_header X-Forwarded-Proto $scheme; # Preserve protocol (http or https)
+        proxy_pass http://10.0.2.10:32000;  # Forward requests to the Jenkins server
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+server {
+    listen 80;
+    server_name wordpress.rss.myslivets.ru;
+
+    location / {
+        proxy_pass http://10.0.2.10:32001;  # Forward requests to the WordPress server
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 

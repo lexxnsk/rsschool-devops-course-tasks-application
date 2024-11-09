@@ -1,0 +1,38 @@
+---
+
+    name: WordPress Deployment
+    
+    on:
+      push:
+        branches:
+          - task_xxx # Replace with your branch name to test GitHub Actions without pushing to the dev branch
+          - dev
+    
+    jobs:
+      deploy-wordpress:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+    
+        - name: Setup SOCKS5 Proxy
+          env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            BASTION_HOST: ${{ vars.BASTION_HOST }}
+            K3S_SERVER_HOST: ${{ vars.K3S_SERVER_HOST }}
+            BASTION_USER: ${{ vars.BASTION_USER }}
+            EC2_USER: ${{ vars.EC2_USER }}
+          run: |
+            # Start SSH agent and add the SSH key
+            eval "$(ssh-agent -s)"
+            echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+            ssh -D 1080 -N -q -o StrictHostKeyChecking=no "$BASTION_USER@$BASTION_HOST" &
+    
+        - name: Deploy WordPress
+          env:
+            KUBECONFIG: /tmp/k3s.yml
+          run: |
+            echo "${{ vars.K3S_CONFIG }}" >> $KUBECONFIG
+            chmod 600 "$KUBECONFIG"
+            kubectl get namespace wordpress || kubectl create namespace wordpress        
+            helm upgrade --install wordpress -n wordpress helm-charts/wordpress
