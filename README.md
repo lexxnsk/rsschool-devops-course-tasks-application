@@ -11,9 +11,6 @@ This repository contains all necessary resources and configurations to deploy an
 ├── screenshots/
 ├── .gitignore
 ├── README.md
-├── jenkins-sa.yaml
-├── jenkins-values.yaml
-├── jenkins-volume.yaml
 ```
 
 ### Directory & File Overview
